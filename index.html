@@ -78,9 +78,12 @@
         }
 
         input[type="file"],
-        input[type="password"] {
+        input[type="password"],
+        textarea {
             margin: 10px 0;
             display: block;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         button {
@@ -92,6 +95,23 @@
             cursor: pointer;
         }
 
+        .hidden {
+            display: none;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        h3 {
+            margin-top: 20px;
+        }
+
+        .news-article {
+            margin-bottom: 20px;
+        }
+
         .upload-preview {
             display: flex;
             flex-wrap: wrap;
@@ -100,19 +120,6 @@
         .upload-preview img {
             max-width: 100px;
             margin: 5px;
-        }
-
-        .hidden {
-            display: none;
-        }
-        
-        h2 { 
-            text-align: center; 
-            margin-top: 0;
-        }
-
-        h3 {
-            margin-top: 20px;
         }
     </style>
 </head>
@@ -125,8 +132,7 @@
                 <li onclick="showTab('schedule')">Schedule</li>
                 <li onclick="showTab('roster')">Roster</li>
                 <li onclick="showTab('teams')">Teams</li>
-                <li onclick="showTab('upload')">Upload Images</li>
-                <li onclick="showTab('edit')">Edit Content</li>
+                <li onclick="showTab('latest-news')">Latest News</li>
             </ul>
         </nav>
     </header>
@@ -166,58 +172,19 @@
                         <td>Bristol 500</td>
                         <td>500</td>
                     </tr>
-                    <tr>
-                        <td>Pocono 500</td>
-                        <td>200</td>
-                    </tr>
-                    <tr>
-                        <td>Michigan 400</td>
-                        <td>200</td>
-                    </tr>
-                    <tr>
-                        <td>New Hampshire 300</td>
-                        <td>300</td>
-                    </tr>
-                    <tr>
-                        <td>Indianapolis 500</td>
-                        <td>400</td>
-                    </tr>
-                    <tr>
-                        <td>Chicago 400</td>
-                        <td>267</td>
-                    </tr>
-                    <tr>
-                        <td>New England 300</td>
-                        <td>300</td>
-                    </tr>
-                    <tr>
-                        <td>Charlotte 600</td>
-                        <td>600</td>
-                    </tr>
-                    <tr>
-                        <td>Martinsville 500</td>
-                        <td>500</td>
-                    </tr>
-                    <tr>
-                        <td>Bristol Night Race</td>
-                        <td>500</td>
-                    </tr>
-                    <tr>
-                        <td>Atlanta 500</td>
-                        <td>325</td>
-                    </tr>
-                    <tr>
-                        <td>Homestead 400</td>
-                        <td>400</td>
-                    </tr>
                 </tbody>
             </table>
+            <input type="password" id="schedulePassword" placeholder="Enter password to edit">
+            <button id="scheduleLoginButton">Login</button>
+            <form id="scheduleEditForm" class="hidden">
+                <textarea id="newScheduleEvent" placeholder="Enter new race event" rows="4"></textarea>
+                <button type="submit">Add Event</button>
+            </form>
         </section>
 
         <section id="roster" class="tab-content">
             <h2>Driver Roster</h2>
-            <h3>Chevrolet</h3>
-            <ul>
+            <ul id="rosterList">
                 <li>Michael Waltrip - #15</li>
                 <li>Dale Earnhardt - #3</li>
                 <li>Dale Earnhardt Jr. - #8</li>
@@ -225,120 +192,41 @@
                 <li>Terry Labonte - #5</li>
                 <li>Steve Park - #1</li>
             </ul>
-
-            <h3>Ford</h3>
-            <ul>
-                <li>Matt Kenseth - #17</li>
-                <li>Mark Martin - #6</li>
-                <li>Dale Jarrett - #88</li>
-                <li>Ricky Rudd - #28</li>
-                <li>Ricky Craven - #32</li>
-                <li>Andy Houston - #00</li>
-            </ul>
-
-            <h3>Pontiac</h3>
-            <ul>
-                <li>Ken Schrader - #49</li>
-                <li>Tony Stewart - #20</li>
-                <li>Kurt Busch - #97</li>
-            </ul>
-
-            <h3>Dodge</h3>
-            <ul>
-                <li>Sterling Marlin - #40</li>
-            </ul>
-        </section>
-
-        <section id="teams" class="tab-content"> 
-            <h2>NASCAR Teams and Drivers</h2>
-            <h3>Chevrolet Teams</h3>
-            <ul>
-                <li>DEI (Dale Earnhardt Inc.): 
-                    <ul>
-                        <li>Dale Earnhardt - #3</li>
-                        <li>Michael Waltrip - #15</li>
-                        <li>Dale Earnhardt Jr. - #8</li>
-                    </ul>
-                </li>
-                <li>Hendrick Motorsports: 
-                    <ul>
-                        <li>Jeff Gordon - #24</li>
-                        <li>Terry Labonte - #5</li>
-                    </ul>
-                </li>
-                <li>Richard Childress Racing: 
-                    <ul>
-                        <li>Kevin Harvick - #29 (not listed but a notable 2001 driver)</li>
-                    </ul>
-                </li>
-            </ul>
-
-            <h3>Ford Teams</h3>
-            <ul>
-                <li>Roush Racing: 
-                    <ul>
-                        <li>Mark Martin - #6</li>
-                        <li>Matt Kenseth - #17</li>
-                    </ul>
-                </li>
-                <li>Robert Yates Racing: 
-                    <ul>
-                        <li>Dale Jarrett - #88</li>
-                    </ul>
-                </li>
-                <li>Penske Racing: 
-                    <ul>
-                        <li>Ricky Rudd - #28</li>
-                    </ul>
-                </li>
-            </ul>
-
-            <h3>Pontiac Teams</h3>
-            <ul>
-                <li>Chip Ganassi Racing: 
-                    <ul>
-                        <li>Tony Stewart - #20</li>
-                    </ul>
-                </li>
-                <li>Ginn Racing: 
-                    <ul>
-                        <li>Kurt Busch - #97</li>
-                    </ul>
-                </li>
-            </ul>
-
-            <h3>Dodge Teams</h3>
-            <ul>
-                <li>Evernham Motorsports: 
-                    <ul>
-                        <li>Sterling Marlin - #40</li>
-                    </ul>
-                </li>
-            </ul>
-        </section>
-
-        <section id="upload" class="tab-content">
-            <h2>Upload Images (Owner Only)</h2>
-            <input type="password" id="uploadPassword" placeholder="Enter password" />
-            <button id="uploadLoginButton">Login</button>
-            <form id="uploadForm" class="hidden">
-                <input type="file" id="fileInput" multiple accept=".jpg, .jpeg, .png" />
-                <button type="submit">Upload</button>
+            <input type="password" id="rosterPassword" placeholder="Enter password to edit">
+            <button id="rosterLoginButton">Login</button>
+            <form id="rosterEditForm" class="hidden">
+                <input type="text" id="newRosterEntry" placeholder="Enter driver name and car number">
+                <button type="submit">Add Driver</button>
             </form>
-            <h3>Uploaded Images:</h3>
-            <div class="upload-preview" id="uploadPreview"></div>
         </section>
 
-        <section id="edit" class="tab-content">
-            <h2>Edit Content (Owner Only)</h2>
-            <input type="password" id="editPassword" placeholder="Enter password" />
-            <button id="editLoginButton">Login</button>
-            <div id="editContent" class="hidden">
-                <h3>Edit Race Schedule</h3>
-                <textarea id="scheduleEdit" rows="5" cols="50" placeholder="Enter race events here, separated by commas"></textarea>
-                <br/>
-                <button id="saveSchedule">Save Schedule</button>
+        <section id="teams" class="tab-content">
+            <h2>NASCAR Teams</h2>
+            <ul id="teamsList">
+                <li>DEI (Dale Earnhardt Inc.): Dale Earnhardt - #3, Michael Waltrip - #15, Dale Earnhardt Jr. - #8</li>
+                <li>Hendrick Motorsports: Jeff Gordon - #24, Terry Labonte - #5</li>
+                <li>Roush Racing: Mark Martin - #6, Matt Kenseth - #17</li>
+            </ul>
+            <input type="password" id="teamsPassword" placeholder="Enter password to edit">
+            <button id="teamsLoginButton">Login</button>
+            <form id="teamsEditForm" class="hidden">
+                <input type="text" id="newTeamEntry" placeholder="Enter team and drivers">
+                <button type="submit">Add Team</button>
+            </form>
+        </section>
+
+        <section id="latest-news" class="tab-content">
+            <h2>Latest News</h2>
+            <div id="newsContainer">
+                <div class="news-article">Dale Earnhardt Jr. wins the Daytona 500!</div>
+                <div class="news-article">Ricky Rudd announces retirement!</div>
             </div>
+            <input type="password" id="newsPassword" placeholder="Enter password to edit">
+            <button id="newsLoginButton">Login</button>
+            <form id="newsEditForm" class="hidden">
+                <textarea id="newNewsArticle" placeholder="Enter new article" rows="4"></textarea>
+                <button type="submit">Add News</button>
+            </form>
         </section>
     </main>
 
@@ -347,80 +235,101 @@
     </footer>
 
     <script>
-        // Show the specified tab content
         function showTab(tabName) {
             const tabs = document.querySelectorAll('.tab-content');
             tabs.forEach(tab => tab.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
+            
+            // Clear password fields when changing tabs
+            document.querySelectorAll('input[type="password"]').forEach(input => input.value = '');
+            document.querySelectorAll('form').forEach(form => form.classList.add('hidden'));
         }
 
-        // Handle the upload functionality
-        document.getElementById('uploadLoginButton').addEventListener('click', function() {
-            const password = document.getElementById('uploadPassword').value;
-            const correctPassword = 'Actionjackson8';  // The actual password
-            if (password === correctPassword) {
-                document.getElementById('uploadForm').classList.remove('hidden');
-                alert('Upload access granted!');
+        // Schedule Edit Logic
+        document.getElementById('scheduleLoginButton').addEventListener('click', function() {
+            const password = document.getElementById('schedulePassword').value;
+            if (password === 'Actionjackson8') {
+                document.getElementById('scheduleEditForm').classList.remove('hidden');
+                alert('Access granted to edit schedule!');
             } else {
-                alert('Incorrect password. Access denied.');
-                document.getElementById('uploadForm').classList.add('hidden');
+                alert('Incorrect password.');
             }
         });
 
-        // Handle image uploading
-        document.getElementById('uploadForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent form submission
-
-            const fileInput = document.getElementById('fileInput');
-            const files = fileInput.files;
-            const previewContainer = document.getElementById('uploadPreview');
-
-            previewContainer.innerHTML = ''; // Clear previous previews
-            
-            for (let i = 0; i < files.length; i++) {
-                const reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result; // Set the image source to the result of reading the file
-                    previewContainer.appendChild(img); // Add the image to the preview container
-                }
-                
-                reader.readAsDataURL(files[i]); // Read the file as a data URL
-            }
-        });
-
-        // Handle the editing functionality
-        document.getElementById('editLoginButton').addEventListener('click', function() {
-            const password = document.getElementById('editPassword').value;
-            const correctPassword = 'Actionjackson8';  // The actual password
-            if (password === correctPassword) {
-                document.getElementById('editContent').classList.remove('hidden');
-                alert('Edit access granted!');
-            } else {
-                alert('Incorrect password. Access denied.');
-                document.getElementById('editContent').classList.add('hidden');
-            }
-        });
-
-        // Save the new schedule
-        document.getElementById('saveSchedule').addEventListener('click', function() {
-            const scheduleEdit = document.getElementById('scheduleEdit').value;
-            const events = scheduleEdit.split(',').map(event => event.trim());
+        document.getElementById('scheduleEditForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const newEvent = document.getElementById('newScheduleEvent').value;
             const scheduleTable = document.getElementById('scheduleTable').getElementsByTagName('tbody')[0];
-            scheduleTable.innerHTML = ''; // Clear existing table content
+            const newRow = scheduleTable.insertRow();
+            newRow.insertCell(0).textContent = newEvent;
+            newRow.insertCell(1).textContent = '200'; // Default laps
+            document.getElementById('newScheduleEvent').value = ''; // Clear input
+        });
 
-            events.forEach(event => {
-                const newRow = scheduleTable.insertRow();
-                const cellEvent = newRow.insertCell(0);
-                const cellLaps = newRow.insertCell(1);
-                cellEvent.innerText = event; // Set the race event text
-                cellLaps.innerText = '200'; // Set a default number of laps (could be dynamic)
-            });
+        // Roster Edit Logic
+        document.getElementById('rosterLoginButton').addEventListener('click', function() {
+            const password = document.getElementById('rosterPassword').value;
+            if (password === 'Actionjackson8') {
+                document.getElementById('rosterEditForm').classList.remove('hidden');
+                alert('Access granted to edit roster!');
+            } else {
+                alert('Incorrect password.');
+            }
+        });
 
-            alert('Schedule updated!');
+        document.getElementById('rosterEditForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const newDriver = document.getElementById('newRosterEntry').value;
+            const rosterList = document.getElementById('rosterList');
+            const newListItem = document.createElement('li');
+            newListItem.textContent = newDriver;
+            rosterList.appendChild(newListItem);
+            document.getElementById('newRosterEntry').value = ''; // Clear input
+        });
+
+        // Teams Edit Logic
+        document.getElementById('teamsLoginButton').addEventListener('click', function() {
+            const password = document.getElementById('teamsPassword').value;
+            if (password === 'Actionjackson8') {
+                document.getElementById('teamsEditForm').classList.remove('hidden');
+                alert('Access granted to edit teams!');
+            } else {
+                alert('Incorrect password.');
+            }
+        });
+
+        document.getElementById('teamsEditForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const newTeam = document.getElementById('newTeamEntry').value;
+            const teamsList = document.getElementById('teamsList');
+            const newListItem = document.createElement('li');
+            newListItem.textContent = newTeam;
+            teamsList.appendChild(newListItem);
+            document.getElementById('newTeamEntry').value = ''; // Clear input
+        });
+
+        // Latest News Edit Logic
+        document.getElementById('newsLoginButton').addEventListener('click', function() {
+            const password = document.getElementById('newsPassword').value;
+            if (password === 'Actionjackson8') {
+                document.getElementById('newsEditForm').classList.remove('hidden');
+                alert('Access granted to edit latest news!');
+            } else {
+                alert('Incorrect password.');
+            }
+        });
+
+        document.getElementById('newsEditForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const newNews = document.getElementById('newNewsArticle').value;
+            const newsContainer = document.getElementById('newsContainer');
+            const newArticle = document.createElement('div');
+            newArticle.classList.add('news-article');
+            newArticle.textContent = newNews;
+            newsContainer.appendChild(newArticle);
+            document.getElementById('newNewsArticle').value = ''; // Clear input
         });
     </script>
 </body>
 
-    </html>
+                </html>
