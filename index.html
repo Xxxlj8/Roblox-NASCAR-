@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,6 +42,7 @@
             border: 1px solid #ccc;
             background: #ffffff;
             border-radius: 4px;
+            margin-top: 15px;
         }
 
         .active {
@@ -53,11 +55,14 @@
             margin-bottom: 20px;
         }
 
-        table, th, td {
+        table,
+        th,
+        td {
             border: 1px solid #ccc;
         }
 
-        th, td {
+        th,
+        td {
             padding: 10px;
             text-align: left;
         }
@@ -72,8 +77,10 @@
             width: 100%;
         }
 
-        input[type="file"] {
+        input[type="file"],
+        input[type="password"] {
             margin: 10px 0;
+            display: block;
         }
 
         button {
@@ -94,8 +101,22 @@
             max-width: 100px;
             margin: 5px;
         }
+
+        .hidden {
+            display: none;
+        }
+        
+        h2 { 
+            text-align: center; 
+            margin-top: 0;
+        }
+
+        h3 {
+            margin-top: 20px;
+        }
     </style>
 </head>
+
 <body>
     <header>
         <h1>Roblox NASCAR 2001</h1>
@@ -103,6 +124,7 @@
             <ul>
                 <li onclick="showTab('schedule')">Schedule</li>
                 <li onclick="showTab('roster')">Roster</li>
+                <li onclick="showTab('teams')">Teams</li>
                 <li onclick="showTab('upload')">Upload Images</li>
                 <li onclick="showTab('edit')">Edit Content</li>
             </ul>
@@ -144,6 +166,50 @@
                         <td>Bristol 500</td>
                         <td>500</td>
                     </tr>
+                    <tr>
+                        <td>Pocono 500</td>
+                        <td>200</td>
+                    </tr>
+                    <tr>
+                        <td>Michigan 400</td>
+                        <td>200</td>
+                    </tr>
+                    <tr>
+                        <td>New Hampshire 300</td>
+                        <td>300</td>
+                    </tr>
+                    <tr>
+                        <td>Indianapolis 500</td>
+                        <td>400</td>
+                    </tr>
+                    <tr>
+                        <td>Chicago 400</td>
+                        <td>267</td>
+                    </tr>
+                    <tr>
+                        <td>New England 300</td>
+                        <td>300</td>
+                    </tr>
+                    <tr>
+                        <td>Charlotte 600</td>
+                        <td>600</td>
+                    </tr>
+                    <tr>
+                        <td>Martinsville 500</td>
+                        <td>500</td>
+                    </tr>
+                    <tr>
+                        <td>Bristol Night Race</td>
+                        <td>500</td>
+                    </tr>
+                    <tr>
+                        <td>Atlanta 500</td>
+                        <td>325</td>
+                    </tr>
+                    <tr>
+                        <td>Homestead 400</td>
+                        <td>400</td>
+                    </tr>
                 </tbody>
             </table>
         </section>
@@ -183,9 +249,79 @@
             </ul>
         </section>
 
+        <section id="teams" class="tab-content"> 
+            <h2>NASCAR Teams and Drivers</h2>
+            <h3>Chevrolet Teams</h3>
+            <ul>
+                <li>DEI (Dale Earnhardt Inc.): 
+                    <ul>
+                        <li>Dale Earnhardt - #3</li>
+                        <li>Michael Waltrip - #15</li>
+                        <li>Dale Earnhardt Jr. - #8</li>
+                    </ul>
+                </li>
+                <li>Hendrick Motorsports: 
+                    <ul>
+                        <li>Jeff Gordon - #24</li>
+                        <li>Terry Labonte - #5</li>
+                    </ul>
+                </li>
+                <li>Richard Childress Racing: 
+                    <ul>
+                        <li>Kevin Harvick - #29 (not listed but a notable 2001 driver)</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Ford Teams</h3>
+            <ul>
+                <li>Roush Racing: 
+                    <ul>
+                        <li>Mark Martin - #6</li>
+                        <li>Matt Kenseth - #17</li>
+                    </ul>
+                </li>
+                <li>Robert Yates Racing: 
+                    <ul>
+                        <li>Dale Jarrett - #88</li>
+                    </ul>
+                </li>
+                <li>Penske Racing: 
+                    <ul>
+                        <li>Ricky Rudd - #28</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Pontiac Teams</h3>
+            <ul>
+                <li>Chip Ganassi Racing: 
+                    <ul>
+                        <li>Tony Stewart - #20</li>
+                    </ul>
+                </li>
+                <li>Ginn Racing: 
+                    <ul>
+                        <li>Kurt Busch - #97</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Dodge Teams</h3>
+            <ul>
+                <li>Evernham Motorsports: 
+                    <ul>
+                        <li>Sterling Marlin - #40</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
         <section id="upload" class="tab-content">
-            <h2>Upload Images</h2>
-            <form id="uploadForm">
+            <h2>Upload Images (Owner Only)</h2>
+            <input type="password" id="uploadPassword" placeholder="Enter password" />
+            <button id="uploadLoginButton">Login</button>
+            <form id="uploadForm" class="hidden">
                 <input type="file" id="fileInput" multiple accept=".jpg, .jpeg, .png" />
                 <button type="submit">Upload</button>
             </form>
@@ -195,10 +331,14 @@
 
         <section id="edit" class="tab-content">
             <h2>Edit Content (Owner Only)</h2>
-            <h3>Edit Race Schedule</h3>
-            <textarea id="scheduleEdit" rows="5" cols="50" placeholder="Enter race events here, separated by commas"></textarea>
-            <br/>
-            <button id="saveSchedule">Save Schedule</button>
+            <input type="password" id="editPassword" placeholder="Enter password" />
+            <button id="editLoginButton">Login</button>
+            <div id="editContent" class="hidden">
+                <h3>Edit Race Schedule</h3>
+                <textarea id="scheduleEdit" rows="5" cols="50" placeholder="Enter race events here, separated by commas"></textarea>
+                <br/>
+                <button id="saveSchedule">Save Schedule</button>
+            </div>
         </section>
     </main>
 
@@ -207,12 +347,27 @@
     </footer>
 
     <script>
+        // Show the specified tab content
         function showTab(tabName) {
             const tabs = document.querySelectorAll('.tab-content');
             tabs.forEach(tab => tab.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
         }
 
+        // Handle the upload functionality
+        document.getElementById('uploadLoginButton').addEventListener('click', function() {
+            const password = document.getElementById('uploadPassword').value;
+            const correctPassword = 'Actionjackson8';  // The actual password
+            if (password === correctPassword) {
+                document.getElementById('uploadForm').classList.remove('hidden');
+                alert('Upload access granted!');
+            } else {
+                alert('Incorrect password. Access denied.');
+                document.getElementById('uploadForm').classList.add('hidden');
+            }
+        });
+
+        // Handle image uploading
         document.getElementById('uploadForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent form submission
 
@@ -221,17 +376,34 @@
             const previewContainer = document.getElementById('uploadPreview');
 
             previewContainer.innerHTML = ''; // Clear previous previews
+            
             for (let i = 0; i < files.length; i++) {
                 const reader = new FileReader();
+                
                 reader.onload = function(e) {
                     const img = document.createElement('img');
-                    img.src = e.target.result;
-                    previewContainer.appendChild(img);
+                    img.src = e.target.result; // Set the image source to the result of reading the file
+                    previewContainer.appendChild(img); // Add the image to the preview container
                 }
-                reader.readAsDataURL(files[i]);
+                
+                reader.readAsDataURL(files[i]); // Read the file as a data URL
             }
         });
 
+        // Handle the editing functionality
+        document.getElementById('editLoginButton').addEventListener('click', function() {
+            const password = document.getElementById('editPassword').value;
+            const correctPassword = 'Actionjackson8';  // The actual password
+            if (password === correctPassword) {
+                document.getElementById('editContent').classList.remove('hidden');
+                alert('Edit access granted!');
+            } else {
+                alert('Incorrect password. Access denied.');
+                document.getElementById('editContent').classList.add('hidden');
+            }
+        });
+
+        // Save the new schedule
         document.getElementById('saveSchedule').addEventListener('click', function() {
             const scheduleEdit = document.getElementById('scheduleEdit').value;
             const events = scheduleEdit.split(',').map(event => event.trim());
@@ -242,12 +414,13 @@
                 const newRow = scheduleTable.insertRow();
                 const cellEvent = newRow.insertCell(0);
                 const cellLaps = newRow.insertCell(1);
-                cellEvent.innerText = event; // Placeholder for event
-                cellLaps.innerText = '200'; // Placeholder for laps
+                cellEvent.innerText = event; // Set the race event text
+                cellLaps.innerText = '200'; // Set a default number of laps (could be dynamic)
             });
 
             alert('Schedule updated!');
         });
     </script>
 </body>
-      </html>
+
+    </html>
