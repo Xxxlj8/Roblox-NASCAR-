@@ -10,19 +10,20 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: #f4f4f4;
+            background: #eaeaea; /* Light grey background */
         }
 
         header {
-            background: #35424a;
+            background: #003DA5; /* Dark Blue */
             color: #ffffff;
-            padding: 20px 0;
+            padding: 15px 0;
             text-align: center;
         }
 
         nav ul {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
 
         nav ul li {
@@ -33,14 +34,15 @@
         nav a {
             color: #ffffff;
             text-decoration: none;
-            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
         }
 
         .tab-content {
             display: none;
             padding: 20px;
-            border: 1px solid #ccc;
-            background: #ffffff;
+            border: 2px solid #003DA5; /* Dark Blue */
+            background: #ffffff; /* White Background */
             border-radius: 4px;
             margin-top: 15px;
         }
@@ -58,7 +60,7 @@
         table,
         th,
         td {
-            border: 1px solid #ccc;
+            border: 1px solid #003DA5; /* Dark Blue */
         }
 
         th,
@@ -67,10 +69,15 @@
             text-align: left;
         }
 
+        th {
+            background-color: #C8102E; /* Red for table header */
+            color: #ffffff; /* White text */
+        }
+
         footer {
             text-align: center;
             padding: 10px 0;
-            background: #35424a;
+            background: #003DA5; /* Dark Blue */
             color: #ffffff;
             position: relative;
             bottom: 0;
@@ -79,20 +86,30 @@
 
         input[type="file"],
         input[type="password"],
-        textarea {
+        textarea,
+        input[type="text"] {
             margin: 10px 0;
             display: block;
             width: 100%;
             box-sizing: border-box;
+            border: 1px solid #003DA5; /* Dark Blue */
+            padding: 8px;
+            border-radius: 4px;
         }
 
         button {
             margin: 10px 0;
-            padding: 8px 12px;
-            background-color: #35424a;
-            color: white;
+            padding: 10px 15px;
+            background-color: #C8102E; /* Red */
+            color: #ffffff; /* White Text */
             border: none;
+            border-radius: 4px;
             cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #A00C24;  /* Darker Red on hover */
         }
 
         .hidden {
@@ -102,10 +119,12 @@
         h2 {
             text-align: center;
             margin-top: 0;
+            color: #003DA5; /* Dark Blue */
         }
 
         h3 {
             margin-top: 20px;
+            color: #C8102E; /* Red */
         }
 
         .news-article {
@@ -239,14 +258,14 @@
             const tabs = document.querySelectorAll('.tab-content');
             tabs.forEach(tab => tab.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
-            
+
             // Clear password fields when changing tabs
             document.querySelectorAll('input[type="password"]').forEach(input => input.value = '');
             document.querySelectorAll('form').forEach(form => form.classList.add('hidden'));
         }
 
         // Schedule Edit Logic
-        document.getElementById('scheduleLoginButton').addEventListener('click', function() {
+        document.getElementById('scheduleLoginButton').addEventListener('click', function () {
             const password = document.getElementById('schedulePassword').value;
             if (password === 'Actionjackson8') {
                 document.getElementById('scheduleEditForm').classList.remove('hidden');
@@ -256,7 +275,7 @@
             }
         });
 
-        document.getElementById('scheduleEditForm').addEventListener('submit', function(event) {
+        document.getElementById('scheduleEditForm').addEventListener('submit', function (event) {
             event.preventDefault();
             const newEvent = document.getElementById('newScheduleEvent').value;
             const scheduleTable = document.getElementById('scheduleTable').getElementsByTagName('tbody')[0];
@@ -267,7 +286,7 @@
         });
 
         // Roster Edit Logic
-        document.getElementById('rosterLoginButton').addEventListener('click', function() {
+        document.getElementById('rosterLoginButton').addEventListener('click', function () {
             const password = document.getElementById('rosterPassword').value;
             if (password === 'Actionjackson8') {
                 document.getElementById('rosterEditForm').classList.remove('hidden');
@@ -277,7 +296,7 @@
             }
         });
 
-        document.getElementById('rosterEditForm').addEventListener('submit', function(event) {
+        document.getElementById('rosterEditForm').addEventListener('submit', function (event) {
             event.preventDefault();
             const newDriver = document.getElementById('newRosterEntry').value;
             const rosterList = document.getElementById('rosterList');
@@ -288,7 +307,7 @@
         });
 
         // Teams Edit Logic
-        document.getElementById('teamsLoginButton').addEventListener('click', function() {
+        document.getElementById('teamsLoginButton').addEventListener('click', function () {
             const password = document.getElementById('teamsPassword').value;
             if (password === 'Actionjackson8') {
                 document.getElementById('teamsEditForm').classList.remove('hidden');
@@ -298,7 +317,7 @@
             }
         });
 
-        document.getElementById('teamsEditForm').addEventListener('submit', function(event) {
+        document.getElementById('teamsEditForm').addEventListener('submit', function (event) {
             event.preventDefault();
             const newTeam = document.getElementById('newTeamEntry').value;
             const teamsList = document.getElementById('teamsList');
@@ -309,7 +328,7 @@
         });
 
         // Latest News Edit Logic
-        document.getElementById('newsLoginButton').addEventListener('click', function() {
+        document.getElementById('newsLoginButton').addEventListener('click', function () {
             const password = document.getElementById('newsPassword').value;
             if (password === 'Actionjackson8') {
                 document.getElementById('newsEditForm').classList.remove('hidden');
@@ -319,7 +338,7 @@
             }
         });
 
-        document.getElementById('newsEditForm').addEventListener('submit', function(event) {
+        document.getElementById('newsEditForm').addEventListener('submit', function (event) {
             event.preventDefault();
             const newNews = document.getElementById('newNewsArticle').value;
             const newsContainer = document.getElementById('newsContainer');
