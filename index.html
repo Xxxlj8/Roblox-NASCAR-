@@ -5,23 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roblox NASCAR League 2001</title>
-    <!-- Link to Google Fonts for improved typography -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
-            background: #000000; /* Black background */
-            color: #ffffff; /* White text */
+            background: #000000;
+            color: #ffffff;
         }
 
         header {
-            background: #003DA5; /* Dark Blue */
+            background: #003DA5;
             color: #ffffff;
             padding: 20px 0;
             text-align: center;
-            border-bottom: 3px solid #C8102E; /* Red accent */
+            border-bottom: 3px solid #C8102E;
         }
 
         nav ul {
@@ -33,24 +32,14 @@
         nav ul li {
             display: inline;
             margin: 0 15px;
-        }
-
-        nav a {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 18px;
-        }
-
-        nav a:hover {
-            color: #C8102E; /* Red on hover */
+            cursor: pointer;
         }
 
         .tab-content {
             display: none;
             padding: 20px;
-            border: 2px solid #003DA5; /* Dark Blue */
-            background: #111111; /* Slightly lighter black */
+            border: 2px solid #003DA5;
+            background: #111111;
             border-radius: 4px;
             margin-top: 15px;
         }
@@ -59,35 +48,28 @@
             display: block;
         }
 
-        footer {
-            text-align: center;
-            padding: 10px 0;
-            background: #003DA5; /* Dark Blue */
-            color: #ffffff;
-            position: relative;
-            bottom: 0;
-            width: 100%;
+        .hidden {
+            display: none;
         }
 
         input[type="password"],
         textarea,
-        input[type="text"],
-        input[type="file"] {
+        input[type="text"] {
             margin: 10px 0;
             display: block;
-            width: calc(100% - 16px); /* Full width */
+            width: calc(100% - 16px);
             box-sizing: border-box;
-            border: 1px solid #003DA5; /* Dark Blue */
+            border: 1px solid #003DA5;
             padding: 8px;
             border-radius: 4px;
-            font-family: 'Montserrat', sans-serif; /* Use Montserrat font */
+            font-family: 'Montserrat', sans-serif;
         }
 
         button {
             margin: 10px 0;
             padding: 10px 15px;
-            background-color: #C8102E; /* Red */
-            color: #ffffff; /* White Text */
+            background-color: #C8102E;
+            color: #ffffff;
             border: none;
             border-radius: 4px;
             cursor: pointer;
@@ -95,28 +77,28 @@
         }
 
         button:hover {
-            background-color: #A00C24; /* Darker Red on hover */
+            background-color: #A00C24;
         }
 
         h2 {
             text-align: center;
             margin-top: 0;
-            color: #ffffff; /* White text for headers */
+            color: #ffffff;
             font-weight: 700;
-        }
-
-        .image-container {
-            margin-top: 10px;
-        }
-
-        .uploaded-image {
-            max-width: 100%;
-            height: auto;
-            margin: 5px 0;
         }
 
         .news-article {
             margin-bottom: 20px;
+        }
+
+        .article-title {
+            font-weight: bold;
+        }
+
+        .edit-button {
+            margin-left: 10px;
+            color: #C8102E;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -139,187 +121,121 @@
         <!-- Latest News Section -->
         <section id="latest-news" class="tab-content active">
             <h2>Latest News</h2>
-            <input type="password" id="newsPassword" placeholder="Enter password to edit">
-            <button id="newsLoginButton">Login</button>
-            <form id="newsEditForm" class="hidden">
-                <textarea id="newNewsCaption" placeholder="Enter caption for the news article" rows="4"></textarea>
-                <input type="file" id="newNewsImage" accept="image/*">
-                <button type="submit">Add News</button>
+            <input type="password" id="newsPassword" placeholder="Enter password to edit" />
+            <button onclick="login('news')">Login</button>
+            <form onsubmit="postArticle(event, 'news')" class="hidden" id="newsForm">
+                <textarea id="newsContent" placeholder="Enter your news article" rows="4"></textarea>
+                <button type="submit">Post News</button>
             </form>
-            <div id="newsContainer"></div>
+            <div id="newsArea"></div>
         </section>
 
-        <!-- Standings Section -->
+        <!-- Example for Standings, Roster, Teams, Schedule -->
         <section id="standings" class="tab-content">
             <h2>Standings</h2>
-            <input type="password" id="standingsPassword" placeholder="Enter password to edit">
-            <button id="standingsLoginButton">Login</button>
-            <form id="standingsEditForm" class="hidden">
-                <textarea id="newStandingsEntry" placeholder="Enter standings entries here" rows="4"></textarea>
-                <button type="submit">Add Entry</button>
+            <input type="password" id="standingsPassword" placeholder="Enter password to edit" />
+            <button onclick="login('standings')">Login</button>
+            <form onsubmit="postArticle(event, 'standings')" class="hidden" id="standingsForm">
+                <textarea id="standingsContent" placeholder="Enter standings update" rows="4"></textarea>
+                <button type="submit">Post Standings</button>
             </form>
+            <div id="standingsArea"></div>
         </section>
 
-        <!-- Driver Roster Section -->
         <section id="roster" class="tab-content">
-            <h2>Driver Roster</h2>
-            <input type="password" id="rosterPassword" placeholder="Enter password to edit">
-            <button id="rosterLoginButton">Login</button>
-            <form id="rosterEditForm" class="hidden">
-                <input type="text" id="newRosterEntry" placeholder="Enter driver name and car number">
-                <button type="submit">Add Driver</button>
+            <h2>Roster</h2>
+            <input type="password" id="rosterPassword" placeholder="Enter password to edit" />
+            <button onclick="login('roster')">Login</button>
+            <form onsubmit="postArticle(event, 'roster')" class="hidden" id="rosterForm">
+                <textarea id="rosterContent" placeholder="Enter roster update" rows="4"></textarea>
+                <button type="submit">Post Roster</button>
             </form>
+            <div id="rosterArea"></div>
         </section>
 
-        <!-- Teams Section -->
         <section id="teams" class="tab-content">
-            <h2>NASCAR Teams</h2>
-            <input type="password" id="teamsPassword" placeholder="Enter password to edit">
-            <button id="teamsLoginButton">Login</button>
-            <form id="teamsEditForm" class="hidden">
-                <input type="text" id="newTeamEntry" placeholder="Enter team and drivers">
-                <button type="submit">Add Team</button>
+            <h2>Teams</h2>
+            <input type="password" id="teamsPassword" placeholder="Enter password to edit" />
+            <button onclick="login('teams')">Login</button>
+            <form onsubmit="postArticle(event, 'teams')" class="hidden" id="teamsForm">
+                <textarea id="teamsContent" placeholder="Enter teams update" rows="4"></textarea>
+                <button type="submit">Post Teams</button>
             </form>
+            <div id="teamsArea"></div>
         </section>
 
-        <!-- Race Schedule Section -->
         <section id="schedule" class="tab-content">
-            <h2>Race Schedule</h2>
-            <input type="password" id="schedulePassword" placeholder="Enter password to edit">
-            <button id="scheduleLoginButton">Login</button>
-            <form id="scheduleEditForm" class="hidden">
-                <textarea id="newScheduleEntry" placeholder="Enter race schedule here" rows="4"></textarea>
-                <button type="submit">Add Schedule Entry</button>
+            <h2>Schedule</h2>
+            <input type="password" id="schedulePassword" placeholder="Enter password to edit" />
+            <button onclick="login('schedule')">Login</button>
+            <form onsubmit="postArticle(event, 'schedule')" class="hidden" id="scheduleForm">
+                <textarea id="scheduleContent" placeholder="Enter schedule update" rows="4"></textarea>
+                <button type="submit">Post Schedule</button>
             </form>
+            <div id="scheduleArea"></div>
         </section>
     </main>
 
     <footer>
-        <p>© 2023 Roblox NASCAR League. All rights reserved.</p>
+        <p>&copy; 2023 Roblox NASCAR League 2001</p>
     </footer>
 
     <script>
-        let isLoggedIn = false; // Flag to track login status
+        let loggedInTabs = {};
 
-        function showTab(tabName) {
+        function showTab(tabId) {
             const tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-
-            // Clear password fields when changing tabs
-            document.querySelectorAll('input[type="password"]').forEach(input => input.value = '');
-            document.querySelectorAll('form').forEach(form => form.classList.add('hidden'));
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
         }
 
-        // Latest News Edit Logic
-        document.getElementById('newsLoginButton').addEventListener('click', function () {
-            const password = document.getElementById('newsPassword').value;
-            if (password === 'Actionjackson8') {
-                isLoggedIn = true;
-                document.getElementById('newsEditForm').classList.remove('hidden');
-                alert('Access granted to edit news!');
+        function login(tabName) {
+            const password = document.getElementById(tabName + "Password").value;
+            if (password === 'yourPassword') { // Replace with your password logic
+                loggedInTabs[tabName] = true;
+                document.getElementById(tabName + "Form").classList.remove('hidden');
+                document.getElementById(tabName + "Password").value = ''; // Clear the password
             } else {
-                alert('Incorrect password.');
+                alert('Incorrect password. Please try again.');
             }
-        });
+        }
 
-        document.getElementById('newsEditForm').addEventListener('submit', function (event) {
+        function postArticle(event, tabName) {
             event.preventDefault();
-            const caption = document.getElementById('newNewsCaption').value;
-            const imgFile = document.getElementById('newNewsImage').files[0];
-            const newsContainer = document.getElementById('newsContainer');
-            
-            // Create a new article element
-            const articleDiv = document.createElement('div');
-            const newImg = document.createElement('img');
-            newImg.src = URL.createObjectURL(imgFile);
-            newImg.alt = caption;
-            newImg.classList.add('uploaded-image');
-            articleDiv.classList.add('news-article');
-            articleDiv.innerHTML = `<p>${caption}</p>`;
-            articleDiv.appendChild(newImg);
-            newsContainer.appendChild(articleDiv);
-            
-            // Clear input fields
-            document.getElementById('newNewsCaption').value = '';
-            document.getElementById('newNewsImage').value = null; 
-        });
-
-        // Standings Edit Logic
-        document.getElementById('standingsLoginButton').addEventListener('click', function () {
-            const password = document.getElementById('standingsPassword').value;
-            if (password === 'Actionjackson8') {
-                isLoggedIn = true;
-                document.getElementById('standingsEditForm').classList.remove('hidden');
-                alert('Access granted to edit standings!');
-            } else {
-                alert('Incorrect password.');
+            if (loggedInTabs[tabName]) {
+                const content = document.getElementById(tabName + "Content").value;
+                const articleDiv = document.createElement("div");
+                articleDiv.classList.add("news-article");
+                articleDiv.innerHTML = `
+                    <span class="article-title">${content}</span>
+                    <span class="edit-button" onclick="editArticle(this, '${tabName}')">Edit</span>
+                `;
+                document.getElementById(tabName + "Area").appendChild(articleDiv);
+                document.getElementById(tabName + "Content").value = ''; // Clear the textarea
             }
-        });
+        }
 
-        document.getElementById('standingsEditForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-            const newEntry = document.getElementById('newStandingsEntry').value;
-            // Functionality to display or process standings can be added here
-            document.getElementById('newStandingsEntry').value = ''; // Clear input
-        });
+        function editArticle(element, tabName) {
+            const articleDiv = element.parentNode;
+            const currentText = articleDiv.querySelector('.article-title').textContent;
+            const textarea = document.createElement("textarea");
+            textarea.value = currentText;
 
-        // Roster Edit Logic
-        document.getElementById('rosterLoginButton').addEventListener('click', function () {
-            const password = document.getElementById('rosterPassword').value;
-            if (password === 'Actionjackson8') {
-                isLoggedIn = true;
-                document.getElementById('rosterEditForm').classList.remove('hidden');
-                alert('Access granted to edit roster!');
-            } else {
-                alert('Incorrect password.');
-            }
-        });
+            const updateButton = document.createElement("button");
+            updateButton.textContent = "Update";
+            updateButton.onclick = function () {
+                articleDiv.querySelector('.article-title').textContent = textarea.value;
+                articleDiv.removeChild(textarea);
+                articleDiv.removeChild(updateButton);
+                element.style.display = 'inline'; // Show the edit button again
+            };
 
-        document.getElementById('rosterEditForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-            const newDriver = document.getElementById('newRosterEntry').value;
-            // Functionality to add or display new drivers can be added here
-            document.getElementById('newRosterEntry').value = ''; // Clear input
-        });
-
-        // Teams Edit Logic
-        document.getElementById('teamsLoginButton').addEventListener('click', function () {
-            const password = document.getElementById('teamsPassword').value;
-            if (password === 'Actionjackson8') {
-                isLoggedIn = true;
-                document.getElementById('teamsEditForm').classList.remove('hidden');
-                alert('Access granted to edit teams!');
-            } else {
-                alert('Incorrect password.');
-            }
-        });
-
-        document.getElementById('teamsEditForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-            const newTeam = document.getElementById('newTeamEntry').value;
-            // Functionality to add or display new teams can be added here
-            document.getElementById('newTeamEntry').value = ''; // Clear input
-        });
-
-        // Schedule Edit Logic
-        document.getElementById('scheduleLoginButton').addEventListener('click', function () {
-            const password = document.getElementById('schedulePassword').value;
-            if (password === 'Actionjackson8') {
-                isLoggedIn = true;
-                document.getElementById('scheduleEditForm').classList.remove('hidden');
-                alert('Access granted to edit schedule!');
-            } else {
-                alert('Incorrect password.');
-            }
-        });
-
-        document.getElementById('scheduleEditForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-            const newScheduleEntry = document.getElementById('newScheduleEntry').value;
-            // Functionality to add or display new schedule entries can be added here
-            document.getElementById('newScheduleEntry').value = ''; // Clear input
-        });
+            articleDiv.appendChild(textarea);
+            articleDiv.appendChild(updateButton);
+            element.style.display = 'none'; // Hide the edit button
+        }
     </script>
 </body>
 
