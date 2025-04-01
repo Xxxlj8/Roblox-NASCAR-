@@ -136,11 +136,12 @@
     </header>
 
     <main>
+        <!-- Latest News Section -->
         <section id="latest-news" class="tab-content active">
             <h2>Latest News</h2>
             <input type="password" id="newsPassword" placeholder="Enter password to edit">
             <button id="newsLoginButton">Login</button>
-            <form id="newsEditForm" class="hidden" enctype="multipart/form-data">
+            <form id="newsEditForm" class="hidden">
                 <textarea id="newNewsCaption" placeholder="Enter caption for the news article" rows="4"></textarea>
                 <input type="file" id="newNewsImage" accept="image/*">
                 <button type="submit">Add News</button>
@@ -148,6 +149,7 @@
             <div id="newsContainer"></div>
         </section>
 
+        <!-- Standings Section -->
         <section id="standings" class="tab-content">
             <h2>Standings</h2>
             <input type="password" id="standingsPassword" placeholder="Enter password to edit">
@@ -158,6 +160,7 @@
             </form>
         </section>
 
+        <!-- Driver Roster Section -->
         <section id="roster" class="tab-content">
             <h2>Driver Roster</h2>
             <input type="password" id="rosterPassword" placeholder="Enter password to edit">
@@ -168,6 +171,7 @@
             </form>
         </section>
 
+        <!-- Teams Section -->
         <section id="teams" class="tab-content">
             <h2>NASCAR Teams</h2>
             <input type="password" id="teamsPassword" placeholder="Enter password to edit">
@@ -178,6 +182,7 @@
             </form>
         </section>
 
+        <!-- Race Schedule Section -->
         <section id="schedule" class="tab-content">
             <h2>Race Schedule</h2>
             <input type="password" id="schedulePassword" placeholder="Enter password to edit">
@@ -194,6 +199,8 @@
     </footer>
 
     <script>
+        let isLoggedIn = false; // Flag to track login status
+
         function showTab(tabName) {
             const tabs = document.querySelectorAll('.tab-content');
             tabs.forEach(tab => tab.classList.remove('active'));
@@ -208,6 +215,7 @@
         document.getElementById('newsLoginButton').addEventListener('click', function () {
             const password = document.getElementById('newsPassword').value;
             if (password === 'Actionjackson8') {
+                isLoggedIn = true;
                 document.getElementById('newsEditForm').classList.remove('hidden');
                 alert('Access granted to edit news!');
             } else {
@@ -241,6 +249,7 @@
         document.getElementById('standingsLoginButton').addEventListener('click', function () {
             const password = document.getElementById('standingsPassword').value;
             if (password === 'Actionjackson8') {
+                isLoggedIn = true;
                 document.getElementById('standingsEditForm').classList.remove('hidden');
                 alert('Access granted to edit standings!');
             } else {
@@ -259,6 +268,7 @@
         document.getElementById('rosterLoginButton').addEventListener('click', function () {
             const password = document.getElementById('rosterPassword').value;
             if (password === 'Actionjackson8') {
+                isLoggedIn = true;
                 document.getElementById('rosterEditForm').classList.remove('hidden');
                 alert('Access granted to edit roster!');
             } else {
@@ -277,6 +287,7 @@
         document.getElementById('teamsLoginButton').addEventListener('click', function () {
             const password = document.getElementById('teamsPassword').value;
             if (password === 'Actionjackson8') {
+                isLoggedIn = true;
                 document.getElementById('teamsEditForm').classList.remove('hidden');
                 alert('Access granted to edit teams!');
             } else {
@@ -295,6 +306,7 @@
         document.getElementById('scheduleLoginButton').addEventListener('click', function () {
             const password = document.getElementById('schedulePassword').value;
             if (password === 'Actionjackson8') {
+                isLoggedIn = true;
                 document.getElementById('scheduleEditForm').classList.remove('hidden');
                 alert('Access granted to edit schedule!');
             } else {
