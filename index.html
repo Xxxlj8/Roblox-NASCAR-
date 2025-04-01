@@ -181,6 +181,7 @@
     </footer>
 
     <script>
+        const actualPassword = 'Actionjackson8';
         let loggedInTabs = {};
 
         function showTab(tabId) {
@@ -193,10 +194,10 @@
 
         function login(tabName) {
             const password = document.getElementById(tabName + "Password").value;
-            if (password === 'yourPassword') { // Replace with your password logic
+            if (password === actualPassword) {
                 loggedInTabs[tabName] = true;
                 document.getElementById(tabName + "Form").classList.remove('hidden');
-                document.getElementById(tabName + "Password").value = ''; // Clear the password
+                document.getElementById(tabName + "Password").value = ''; // Clear the password field
             } else {
                 alert('Incorrect password. Please try again.');
             }
