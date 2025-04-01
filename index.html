@@ -4,20 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox NASCAR 2001</title>
+    <title>Roblox NASCAR League 2001</title>
+    <!-- Link to Google Fonts for improved typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
-            background: #eaeaea; /* Light grey background */
+            background: #000000; /* Black background */
+            color: #ffffff; /* White text */
         }
 
         header {
             background: #003DA5; /* Dark Blue */
             color: #ffffff;
-            padding: 15px 0;
+            padding: 20px 0;
             text-align: center;
+            border-bottom: 3px solid #C8102E; /* Red accent */
         }
 
         nav ul {
@@ -34,44 +38,25 @@
         nav a {
             color: #ffffff;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
             font-size: 18px;
+        }
+
+        nav a:hover {
+            color: #C8102E; /* Red on hover */
         }
 
         .tab-content {
             display: none;
             padding: 20px;
             border: 2px solid #003DA5; /* Dark Blue */
-            background: #ffffff; /* White Background */
+            background: #111111; /* Slightly lighter black */
             border-radius: 4px;
             margin-top: 15px;
         }
 
         .active {
             display: block;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid #003DA5; /* Dark Blue */
-        }
-
-        th,
-        td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #C8102E; /* Red for table header */
-            color: #ffffff; /* White text */
         }
 
         footer {
@@ -84,17 +69,18 @@
             width: 100%;
         }
 
-        input[type="file"],
         input[type="password"],
         textarea,
-        input[type="text"] {
+        input[type="text"],
+        input[type="file"] {
             margin: 10px 0;
             display: block;
-            width: 100%;
+            width: calc(100% - 16px); /* Full width */
             box-sizing: border-box;
             border: 1px solid #003DA5; /* Dark Blue */
             padding: 8px;
             border-radius: 4px;
+            font-family: 'Montserrat', sans-serif; /* Use Montserrat font */
         }
 
         button {
@@ -105,116 +91,75 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 700;
         }
 
         button:hover {
             background-color: #A00C24; /* Darker Red on hover */
         }
 
-        .hidden {
-            display: none;
-        }
-
         h2 {
             text-align: center;
             margin-top: 0;
-            color: #003DA5; /* Dark Blue */
+            color: #ffffff; /* White text for headers */
+            font-weight: 700;
         }
 
-        h3 {
-            margin-top: 20px;
-            color: #C8102E; /* Red */
+        .image-container {
+            margin-top: 10px;
+        }
+
+        .uploaded-image {
+            max-width: 100%;
+            height: auto;
+            margin: 5px 0;
         }
 
         .news-article {
             margin-bottom: 20px;
-        }
-
-        .upload-preview {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .upload-preview img {
-            max-width: 100px;
-            margin: 5px;
         }
     </style>
 </head>
 
 <body>
     <header>
-        <h1>Roblox NASCAR 2001</h1>
+        <h1>Roblox NASCAR League 2001</h1>
         <nav>
             <ul>
-                <li onclick="showTab('schedule')">Schedule</li>
+                <li onclick="showTab('latest-news')">Latest News</li>
+                <li onclick="showTab('standings')">Standings</li>
                 <li onclick="showTab('roster')">Roster</li>
                 <li onclick="showTab('teams')">Teams</li>
-                <li onclick="showTab('latest-news')">Latest News</li>
+                <li onclick="showTab('schedule')">Schedule</li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section id="schedule" class="tab-content active">
-            <h2>Race Schedule</h2>
-            <table id="scheduleTable">
-                <thead>
-                    <tr>
-                        <th>Race Event</th>
-                        <th>Laps</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Daytona 500</td>
-                        <td>200</td>
-                    </tr>
-                    <tr>
-                        <td>Rockingham 400</td>
-                        <td>400</td>
-                    </tr>
-                    <tr>
-                        <td>Las Vegas 400</td>
-                        <td>267</td>
-                    </tr>
-                    <tr>
-                        <td>Atlanta 500</td>
-                        <td>325</td>
-                    </tr>
-                    <tr>
-                        <td>Texas 500</td>
-                        <td>334</td>
-                    </tr>
-                    <tr>
-                        <td>Bristol 500</td>
-                        <td>500</td>
-                    </tr>
-                </tbody>
-            </table>
-            <input type="password" id="schedulePassword" placeholder="Enter password to edit">
-            <button id="scheduleLoginButton">Login</button>
-            <form id="scheduleEditForm" class="hidden">
-                <textarea id="newScheduleEvent" placeholder="Enter new race event" rows="4"></textarea>
-                <button type="submit">Add Event</button>
+        <section id="latest-news" class="tab-content active">
+            <h2>Latest News</h2>
+            <input type="password" id="newsPassword" placeholder="Enter password to edit">
+            <button id="newsLoginButton">Login</button>
+            <form id="newsEditForm" class="hidden" enctype="multipart/form-data">
+                <textarea id="newNewsCaption" placeholder="Enter caption for the news article" rows="4"></textarea>
+                <input type="file" id="newNewsImage" accept="image/*">
+                <button type="submit">Add News</button>
+            </form>
+            <div id="newsContainer"></div>
+        </section>
+
+        <section id="standings" class="tab-content">
+            <h2>Standings</h2>
+            <input type="password" id="standingsPassword" placeholder="Enter password to edit">
+            <button id="standingsLoginButton">Login</button>
+            <form id="standingsEditForm" class="hidden">
+                <textarea id="newStandingsEntry" placeholder="Enter standings entries here" rows="4"></textarea>
+                <button type="submit">Add Entry</button>
             </form>
         </section>
 
         <section id="roster" class="tab-content">
             <h2>Driver Roster</h2>
-            <ul id="rosterList">
-                <li>Michael Waltrip - #15</li>
-                <li>Dale Earnhardt - #3</li>
-                <li>Dale Earnhardt Jr. - #8</li>
-                <li>Jeff Gordon - #24</li>
-                <li>Terry Labonte - #5</li>
-                <li>Steve Park - #1</li>
-                <li>Kevin Harvick - #29</li>
-                <li>Rusty Wallace - #2</li>
-                <li>Mark Martin - #6</li>
-                <li>Ricky Rudd - #28</li>
-            </ul>
             <input type="password" id="rosterPassword" placeholder="Enter password to edit">
             <button id="rosterLoginButton">Login</button>
             <form id="rosterEditForm" class="hidden">
@@ -225,50 +170,6 @@
 
         <section id="teams" class="tab-content">
             <h2>NASCAR Teams</h2>
-            <ul id="teamsList">
-                <li><strong>DEI (Dale Earnhardt Inc.):</strong> 
-                    <ul>
-                        <li>Dale Earnhardt - #3</li>
-                        <li>Michael Waltrip - #15</li>
-                        <li>Dale Earnhardt Jr. - #8</li>
-                    </ul>
-                </li>
-                <li><strong>Hendrick Motorsports:</strong> 
-                    <ul>
-                        <li>Jeff Gordon - #24</li>
-                        <li>Terry Labonte - #5</li>
-                    </ul>
-                </li>
-                <li><strong>Roush Racing:</strong> 
-                    <ul>
-                        <li>Mark Martin - #6</li>
-                        <li>Matt Kenseth - #17</li>
-                        <li>Jeff Burton - #99</li>
-                    </ul>
-                </li>
-                <li><strong>Penske Racing:</strong> 
-                    <ul>
-                        <li>Rusty Wallace - #2</li>
-                        <li>Ryan Newman - #12</li>
-                    </ul>
-                </li>
-                <li><strong>Robert Yates Racing:</strong> 
-                    <ul>
-                        <li>Dale Jarrett - #88</li>
-                        <li>Ricky Rudd - #28</li>
-                    </ul>
-                </li>
-                <li><strong>Chip Ganassi Racing:</strong>
-                    <ul>
-                        <li>Tony Stewart - #20</li>
-                    </ul>
-                </li>
-                <li><strong>Dodge Teams:</strong>
-                    <ul>
-                        <li>Sterling Marlin - #40</li>
-                    </ul>
-                </li>
-            </ul>
             <input type="password" id="teamsPassword" placeholder="Enter password to edit">
             <button id="teamsLoginButton">Login</button>
             <form id="teamsEditForm" class="hidden">
@@ -277,23 +178,19 @@
             </form>
         </section>
 
-        <section id="latest-news" class="tab-content">
-            <h2>Latest News</h2>
-            <div id="newsContainer">
-                <div class="news-article">Dale Earnhardt Jr. wins the Daytona 500!</div>
-                <div class="news-article">Ricky Rudd announces retirement!</div>
-            </div>
-            <input type="password" id="newsPassword" placeholder="Enter password to edit">
-            <button id="newsLoginButton">Login</button>
-            <form id="newsEditForm" class="hidden">
-                <textarea id="newNewsArticle" placeholder="Enter new article" rows="4"></textarea>
-                <button type="submit">Add News</button>
+        <section id="schedule" class="tab-content">
+            <h2>Race Schedule</h2>
+            <input type="password" id="schedulePassword" placeholder="Enter password to edit">
+            <button id="scheduleLoginButton">Login</button>
+            <form id="scheduleEditForm" class="hidden">
+                <textarea id="newScheduleEntry" placeholder="Enter race schedule here" rows="4"></textarea>
+                <button type="submit">Add Schedule Entry</button>
             </form>
         </section>
     </main>
 
     <footer>
-        <p>© 2023 Roblox NASCAR 2001. All rights reserved.</p>
+        <p>© 2023 Roblox NASCAR League. All rights reserved.</p>
     </footer>
 
     <script>
@@ -307,25 +204,55 @@
             document.querySelectorAll('form').forEach(form => form.classList.add('hidden'));
         }
 
-        // Schedule Edit Logic
-        document.getElementById('scheduleLoginButton').addEventListener('click', function () {
-            const password = document.getElementById('schedulePassword').value;
+        // Latest News Edit Logic
+        document.getElementById('newsLoginButton').addEventListener('click', function () {
+            const password = document.getElementById('newsPassword').value;
             if (password === 'Actionjackson8') {
-                document.getElementById('scheduleEditForm').classList.remove('hidden');
-                alert('Access granted to edit schedule!');
+                document.getElementById('newsEditForm').classList.remove('hidden');
+                alert('Access granted to edit news!');
             } else {
                 alert('Incorrect password.');
             }
         });
 
-        document.getElementById('scheduleEditForm').addEventListener('submit', function (event) {
+        document.getElementById('newsEditForm').addEventListener('submit', function (event) {
             event.preventDefault();
-            const newEvent = document.getElementById('newScheduleEvent').value;
-            const scheduleTable = document.getElementById('scheduleTable').getElementsByTagName('tbody')[0];
-            const newRow = scheduleTable.insertRow();
-            newRow.insertCell(0).textContent = newEvent;
-            newRow.insertCell(1).textContent = '200'; // Default laps
-            document.getElementById('newScheduleEvent').value = ''; // Clear input
+            const caption = document.getElementById('newNewsCaption').value;
+            const imgFile = document.getElementById('newNewsImage').files[0];
+            const newsContainer = document.getElementById('newsContainer');
+            
+            // Create a new article element
+            const articleDiv = document.createElement('div');
+            const newImg = document.createElement('img');
+            newImg.src = URL.createObjectURL(imgFile);
+            newImg.alt = caption;
+            newImg.classList.add('uploaded-image');
+            articleDiv.classList.add('news-article');
+            articleDiv.innerHTML = `<p>${caption}</p>`;
+            articleDiv.appendChild(newImg);
+            newsContainer.appendChild(articleDiv);
+            
+            // Clear input fields
+            document.getElementById('newNewsCaption').value = '';
+            document.getElementById('newNewsImage').value = null; 
+        });
+
+        // Standings Edit Logic
+        document.getElementById('standingsLoginButton').addEventListener('click', function () {
+            const password = document.getElementById('standingsPassword').value;
+            if (password === 'Actionjackson8') {
+                document.getElementById('standingsEditForm').classList.remove('hidden');
+                alert('Access granted to edit standings!');
+            } else {
+                alert('Incorrect password.');
+            }
+        });
+
+        document.getElementById('standingsEditForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const newEntry = document.getElementById('newStandingsEntry').value;
+            // Functionality to display or process standings can be added here
+            document.getElementById('newStandingsEntry').value = ''; // Clear input
         });
 
         // Roster Edit Logic
@@ -342,10 +269,7 @@
         document.getElementById('rosterEditForm').addEventListener('submit', function (event) {
             event.preventDefault();
             const newDriver = document.getElementById('newRosterEntry').value;
-            const rosterList = document.getElementById('rosterList');
-            const newListItem = document.createElement('li');
-            newListItem.textContent = newDriver;
-            rosterList.appendChild(newListItem);
+            // Functionality to add or display new drivers can be added here
             document.getElementById('newRosterEntry').value = ''; // Clear input
         });
 
@@ -363,33 +287,26 @@
         document.getElementById('teamsEditForm').addEventListener('submit', function (event) {
             event.preventDefault();
             const newTeam = document.getElementById('newTeamEntry').value;
-            const teamsList = document.getElementById('teamsList');
-            const newListItem = document.createElement('li');
-            newListItem.textContent = newTeam;
-            teamsList.appendChild(newListItem);
+            // Functionality to add or display new teams can be added here
             document.getElementById('newTeamEntry').value = ''; // Clear input
         });
 
-        // Latest News Edit Logic
-        document.getElementById('newsLoginButton').addEventListener('click', function () {
-            const password = document.getElementById('newsPassword').value;
+        // Schedule Edit Logic
+        document.getElementById('scheduleLoginButton').addEventListener('click', function () {
+            const password = document.getElementById('schedulePassword').value;
             if (password === 'Actionjackson8') {
-                document.getElementById('newsEditForm').classList.remove('hidden');
-                alert('Access granted to edit latest news!');
+                document.getElementById('scheduleEditForm').classList.remove('hidden');
+                alert('Access granted to edit schedule!');
             } else {
                 alert('Incorrect password.');
             }
         });
 
-        document.getElementById('newsEditForm').addEventListener('submit', function (event) {
+        document.getElementById('scheduleEditForm').addEventListener('submit', function (event) {
             event.preventDefault();
-            const newNews = document.getElementById('newNewsArticle').value;
-            const newsContainer = document.getElementById('newsContainer');
-            const newArticle = document.createElement('div');
-            newArticle.classList.add('news-article');
-            newArticle.textContent = newNews;
-            newsContainer.appendChild(newArticle);
-            document.getElementById('newNewsArticle').value = ''; // Clear input
+            const newScheduleEntry = document.getElementById('newScheduleEntry').value;
+            // Functionality to add or display new schedule entries can be added here
+            document.getElementById('newScheduleEntry').value = ''; // Clear input
         });
     </script>
 </body>
