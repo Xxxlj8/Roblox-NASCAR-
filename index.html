@@ -1,15 +1,3 @@
-To make your NASCAR news application save posts so that they persist even after the page is refreshed, you can use the browser's `localStorage`. This allows you to store data in the user's browser, which you can retrieve and display on subsequent visits.
-
-Here’s how to implement saving and retrieving posts in your application:
-
-### Code Modifications
-
-1. **Save Posts to Local Storage**: When a post is submitted, save it in `localStorage`.
-2. **Load Posts from Local Storage**: When the page loads, check `localStorage` for any previously saved posts and display them.
-
-Below is the full modified code with these capabilities:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -337,18 +325,3 @@ Below is the full modified code with these capabilities:
 </body>
 
 </html>
-```
-
-### Key Features Added:
-1. **Saving Posts**: Each time a post is made, it's saved in `localStorage` under the corresponding tab (e.g., news, standings, etc.).
-   
-2. **Loading Posts**: When the page is loaded, any previously saved posts are fetched from `localStorage` and appended to their respective areas.
-
-3. **Updating Local Storage on Editing**: When content is edited, the local storage is updated to reflect the changes made to each post.
-
-### How It Works:
-- When you create a new post, it saves the entire inner HTML of the post to `localStorage`.
-- When the page loads, it retrieves saved posts and displays them in the corresponding sections.
-- Edited posts update the stored content, so the changes persist across page refreshes.
-
-This makes your application much more functional, as it allows users to come back to previously entered data without it being lost.
