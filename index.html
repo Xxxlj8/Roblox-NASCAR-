@@ -224,8 +224,12 @@
 
                 const articleDiv = document.createElement("div");
                 articleDiv.classList.add("news-article");
+
+                // Use .replace to convert newlines to <br>
+                const formattedContent = content.replace(/\n/g, '<br>');
+                
                 articleDiv.innerHTML = `
-                    <span class="article-title">${content}</span>
+                    <span class="article-title">${formattedContent}</span>
                     ${imageURL ? `<div class="image-container"><img src="${imageURL}" class="uploaded-image" /></div>` : ''}
                     <span class="edit-button" onclick="editArticle(this)">Edit</span>
                 `;
@@ -239,7 +243,7 @@
 
         function editArticle(element) {
             const articleDiv = element.parentNode;
-            const currentText = articleDiv.querySelector('.article-title').textContent;
+            const currentText = articleDiv.querySelector('.article-title').innerHTML.replace(/<br>/g, '\n'); // Get text with line breaks
             const currentImage = articleDiv.querySelector('.uploaded-image') ? articleDiv.querySelector('.uploaded-image').src : '';
 
             // Create a textarea for edit
@@ -250,19 +254,15 @@
             const imageInput = document.createElement("input");
             imageInput.type = "file";
             imageInput.accept = "image/*";
-            if (currentImage) {
-                const imgPreview = document.createElement("img");
-                imgPreview.src = currentImage;
-                imgPreview.classList.add("uploaded-image");
-                articleDiv.appendChild(imgPreview);
-            }
 
             // Create update button
             const updateButton = document.createElement("button");
             updateButton.textContent = "Update";
             updateButton.onclick = function () {
                 const newImageURL = imageInput.files.length > 0 ? URL.createObjectURL(imageInput.files[0]) : currentImage;
-                articleDiv.querySelector('.article-title').textContent = textarea.value;
+                const formattedNewText = textarea.value.replace(/\n/g, '<br>'); // Convert newlines to <br>
+                articleDiv.querySelector('.article-title').innerHTML = formattedNewText;
+
                 if (articleDiv.querySelector('.uploaded-image')) {
                     articleDiv.querySelector('.uploaded-image').src = newImageURL; // Update image
                 } else {
