@@ -54,7 +54,8 @@
 
         input[type="password"],
         textarea,
-        input[type="text"] {
+        input[type="text"],
+        input[type="file"] {
             margin: 10px 0;
             display: block;
             width: calc(100% - 16px);
@@ -100,6 +101,16 @@
             color: #C8102E;
             cursor: pointer;
         }
+
+        .image-container {
+            margin-top: 10px;
+        }
+
+        .uploaded-image {
+            max-width: 100%;
+            height: auto;
+            margin: 5px 0;
+        }
     </style>
 </head>
 
@@ -123,14 +134,15 @@
             <h2>Latest News</h2>
             <input type="password" id="newsPassword" placeholder="Enter password to edit" />
             <button onclick="login('news')">Login</button>
-            <form onsubmit="postArticle(event, 'news')" class="hidden" id="newsForm">
+            <form id="newsForm" class="hidden" onsubmit="postArticle(event, 'news')">
                 <textarea id="newsContent" placeholder="Enter your news article" rows="4"></textarea>
+                <input type="file" id="newsImage" accept="image/*" />
                 <button type="submit">Post News</button>
             </form>
             <div id="newsArea"></div>
         </section>
 
-        <!-- Example for Standings, Roster, Teams, Schedule -->
+        <!-- Other tabs (Standings, Roster, Teams, Schedule) -->
         <section id="standings" class="tab-content">
             <h2>Standings</h2>
             <input type="password" id="standingsPassword" placeholder="Enter password to edit" />
@@ -177,7 +189,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2023 Roblox NASCAR League 2001</p>
+        <p>© 2023 Roblox NASCAR League 2001</p>
     </footer>
 
     <script>
@@ -207,33 +219,67 @@
             event.preventDefault();
             if (loggedInTabs[tabName]) {
                 const content = document.getElementById(tabName + "Content").value;
+                const imageInput = document.getElementById(tabName + "Image");
+                const imageURL = imageInput && imageInput.files.length > 0 ? URL.createObjectURL(imageInput.files[0]) : '';
+
                 const articleDiv = document.createElement("div");
                 articleDiv.classList.add("news-article");
                 articleDiv.innerHTML = `
                     <span class="article-title">${content}</span>
-                    <span class="edit-button" onclick="editArticle(this, '${tabName}')">Edit</span>
+                    ${imageURL ? `<div class="image-container"><img src="${imageURL}" class="uploaded-image" /></div>` : ''}
+                    <span class="edit-button" onclick="editArticle(this)">Edit</span>
                 `;
                 document.getElementById(tabName + "Area").appendChild(articleDiv);
-                document.getElementById(tabName + "Content").value = ''; // Clear the textarea
+
+                // Clear textarea and file input
+                document.getElementById(tabName + "Content").value = '';
+                if (imageInput) imageInput.value = ''; // Clear the image input
             }
         }
 
-        function editArticle(element, tabName) {
+        function editArticle(element) {
             const articleDiv = element.parentNode;
             const currentText = articleDiv.querySelector('.article-title').textContent;
+            const currentImage = articleDiv.querySelector('.uploaded-image') ? articleDiv.querySelector('.uploaded-image').src : '';
+
+            // Create a textarea for edit
             const textarea = document.createElement("textarea");
             textarea.value = currentText;
 
+            // Create file input for image upload
+            const imageInput = document.createElement("input");
+            imageInput.type = "file";
+            imageInput.accept = "image/*";
+            if (currentImage) {
+                const imgPreview = document.createElement("img");
+                imgPreview.src = currentImage;
+                imgPreview.classList.add("uploaded-image");
+                articleDiv.appendChild(imgPreview);
+            }
+
+            // Create update button
             const updateButton = document.createElement("button");
             updateButton.textContent = "Update";
             updateButton.onclick = function () {
+                const newImageURL = imageInput.files.length > 0 ? URL.createObjectURL(imageInput.files[0]) : currentImage;
                 articleDiv.querySelector('.article-title').textContent = textarea.value;
+                if (articleDiv.querySelector('.uploaded-image')) {
+                    articleDiv.querySelector('.uploaded-image').src = newImageURL; // Update image
+                } else {
+                    const img = document.createElement("img");
+                    img.src = newImageURL;
+                    img.classList.add("uploaded-image");
+                    articleDiv.appendChild(img);
+                }
                 articleDiv.removeChild(textarea);
+                articleDiv.removeChild(imageInput);
                 articleDiv.removeChild(updateButton);
                 element.style.display = 'inline'; // Show the edit button again
             };
 
+            // Append the textarea, file input, and update button to the articleDiv
             articleDiv.appendChild(textarea);
+            articleDiv.appendChild(imageInput);
             articleDiv.appendChild(updateButton);
             element.style.display = 'none'; // Hide the edit button
         }
